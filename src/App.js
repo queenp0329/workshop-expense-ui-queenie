@@ -19,7 +19,7 @@ function renderExpenses(expenses) {
 
 
 function App() {
-  
+
   const [expenses, setExpenses] = useState([]);
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState(0);
@@ -43,10 +43,11 @@ function App() {
   useEffect(() => {
     fetchExpenses();
   }, []);
+
   const saveExpense = async (event) => {
     event.preventDefault();
 
-    const apiUrl = "http://localhost:1234";
+    const apiUrl = "https://queeniecute-workshop-api.onrender.com";
 
     const endpoint = `${apiUrl}/api/expenses`;
 
@@ -66,37 +67,37 @@ function App() {
 
     setOnSuccessfulSave(true);
   };
-    useEffect(()=>{
-        if(onSuccessfulSave){
-          fetchExpenses();
-        }
-      },[onSuccessfulSave])
-      return (
-        <div>
-          <form>
-            <textarea cols="30" rows="10"></textarea>
-            <input type="number" />
-            <input type="date" />
-            <button>Save</button>
-          </form>
-    
-          <h2>My Expenses</h2>
-    
-          <table width="100%">
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-    
-            <tbody>
-            </tbody>
-          </table>
-        </div>
-      );
+  useEffect(() => {
+    if (onSuccessfulSave) {
+      fetchExpenses();
     }
+  }, [onSuccessfulSave])
+  return (
+    <div>
+      <form>
+        <textarea cols="30" rows="10"></textarea>
+        <input type="number" />
+        <input type="date" />
+        <button>Save</button>
+      </form>
+
+      <h2>My Expenses</h2>
+
+      <table width="100%">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
 export default App;
