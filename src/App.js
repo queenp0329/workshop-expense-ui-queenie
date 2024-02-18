@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
+
 import { useEffect, useState } from "react";
 
 function renderExpenses(expenses) {
@@ -21,6 +20,7 @@ function renderExpenses(expenses) {
 function App() {
 
   const [expenses, setExpenses] = useState([]);
+
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState(0);
   const [date, setDate] = useState(
@@ -30,7 +30,7 @@ function App() {
 
 
   const fetchExpenses = async () => {
-    const apiUrl = "https://queeniecute-workshop-api.onrender.com";
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const endpoint = `${apiUrl}/api/expenses`;
 
@@ -47,7 +47,7 @@ function App() {
   const saveExpense = async (event) => {
     event.preventDefault();
 
-    const apiUrl = "https://queeniecute-workshop-api.onrender.com";
+    const apiUrl =  process.env.REACT_APP_API_URL;
 
     const endpoint = `${apiUrl}/api/expenses`;
 
@@ -67,17 +67,32 @@ function App() {
 
     setOnSuccessfulSave(true);
   };
+
   useEffect(() => {
     if (onSuccessfulSave) {
       fetchExpenses();
     }
   }, [onSuccessfulSave])
+
   return (
     <div>
-      <form>
-        <textarea cols="30" rows="10"></textarea>
-        <input type="number" />
-        <input type="date" />
+           <form onSubmit={saveExpense}>
+        <textarea
+          cols="30"
+          rows="10"
+          value={description}
+          onChange={(event) => setDescription(event.target.value)}
+        ></textarea>
+        <input
+          type="number"
+          value={amount}
+          onChange={(event) => setAmount(event.target.value)}
+        />
+        <input
+          type="date"
+          value={date}
+          onChange={(event) => setDate(event.target.value)}
+        />
         <button>Save</button>
       </form>
 
@@ -94,6 +109,7 @@ function App() {
         </thead>
 
         <tbody>
+          {renderExpenses(expenses)}
         </tbody>
       </table>
     </div>
