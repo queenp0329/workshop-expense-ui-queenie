@@ -19,6 +19,7 @@ function renderExpenses(expenses) {
 
 
 function App() {
+  
   const [expenses, setExpenses] = useState([]);
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState(0);
@@ -70,36 +71,32 @@ function App() {
           fetchExpenses();
         }
       },[onSuccessfulSave])
-
-  return (
-    <div>
-      <form onSubmit={saveExpense}>
-        <textarea
-          cols="30"
-          rows="10"
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
-        ></textarea>
-        <input
-          type="number"
-          value={amount}
-          onChange={(event) => setAmount(event.target.value)}
-        />
-        <input
-          type="date"
-          value={date}
-          onChange={(event) => setDate(event.target.value)}
-        />
-        <button>Save</button>
-      </form>
-
-      <h2>My Expenses</h2>
-
-      <table width="100%">
-        ...
-      </table>
-    </div>
-  );
-}
+      return (
+        <div>
+          <form>
+            <textarea cols="30" rows="10"></textarea>
+            <input type="number" />
+            <input type="date" />
+            <button>Save</button>
+          </form>
+    
+          <h2>My Expenses</h2>
+    
+          <table width="100%">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+    
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      );
+    }
 
 export default App;
